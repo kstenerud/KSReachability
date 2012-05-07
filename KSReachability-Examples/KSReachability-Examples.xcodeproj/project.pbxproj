@@ -1,0 +1,505 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		3964E4FE1557730300136D58 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3964E4FD1557730300136D58 /* UIKit.framework */; };
+		3964E5001557730300136D58 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3964E4FF1557730300136D58 /* Foundation.framework */; };
+		3964E5021557730300136D58 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3964E5011557730300136D58 /* CoreGraphics.framework */; };
+		3964E5081557730300136D58 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3964E5061557730300136D58 /* InfoPlist.strings */; };
+		3964E50A1557730300136D58 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 3964E5091557730300136D58 /* main.m */; };
+		3964E50E1557730300136D58 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 3964E50D1557730300136D58 /* AppDelegate.m */; };
+		3964E5111557730300136D58 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3964E5101557730300136D58 /* ViewController.m */; };
+		3964E5141557730300136D58 /* ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3964E5121557730300136D58 /* ViewController.xib */; };
+		3964E51F1557731300136D58 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3964E51E1557731300136D58 /* Cocoa.framework */; };
+		3964E5291557731400136D58 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3964E5271557731400136D58 /* InfoPlist.strings */; };
+		3964E52B1557731400136D58 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 3964E52A1557731400136D58 /* main.m */; };
+		3964E52F1557731400136D58 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 3964E52D1557731400136D58 /* Credits.rtf */; };
+		3964E5321557731400136D58 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 3964E5311557731400136D58 /* AppDelegate.m */; };
+		3964E5351557731400136D58 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3964E5331557731400136D58 /* MainMenu.xib */; };
+		3964E53A1557733600136D58 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3964E5391557733600136D58 /* SystemConfiguration.framework */; };
+		3964E53C1557734C00136D58 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3964E53B1557734C00136D58 /* SystemConfiguration.framework */; };
+		3964E5451557736C00136D58 /* KSReachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 3964E5401557736C00136D58 /* KSReachability.m */; };
+		3964E5461557736C00136D58 /* KSReachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 3964E5401557736C00136D58 /* KSReachability.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		3964E4F91557730300136D58 /* iOSReachability.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iOSReachability.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		3964E4FD1557730300136D58 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
+		3964E4FF1557730300136D58 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
+		3964E5011557730300136D58 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = Library/Frameworks/CoreGraphics.framework; sourceTree = DEVELOPER_DIR; };
+		3964E5051557730300136D58 /* iOSReachability-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "iOSReachability-Info.plist"; sourceTree = "<group>"; };
+		3964E5071557730300136D58 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		3964E5091557730300136D58 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		3964E50B1557730300136D58 /* iOSReachability-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "iOSReachability-Prefix.pch"; sourceTree = "<group>"; };
+		3964E50C1557730300136D58 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.objj.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		3964E50D1557730300136D58 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		3964E50F1557730300136D58 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.objj.h; path = ViewController.h; sourceTree = "<group>"; };
+		3964E5101557730300136D58 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		3964E5131557730300136D58 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ViewController.xib; sourceTree = "<group>"; };
+		3964E51C1557731300136D58 /* MacReachability.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MacReachability.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		3964E51E1557731300136D58 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
+		3964E5211557731300136D58 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
+		3964E5221557731300136D58 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		3964E5231557731300136D58 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		3964E5261557731400136D58 /* MacReachability-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "MacReachability-Info.plist"; sourceTree = "<group>"; };
+		3964E5281557731400136D58 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		3964E52A1557731400136D58 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		3964E52C1557731400136D58 /* MacReachability-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MacReachability-Prefix.pch"; sourceTree = "<group>"; };
+		3964E52E1557731400136D58 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
+		3964E5301557731400136D58 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.objj.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		3964E5311557731400136D58 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		3964E5341557731400136D58 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		3964E5391557733600136D58 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS5.1.sdk/System/Library/Frameworks/SystemConfiguration.framework; sourceTree = DEVELOPER_DIR; };
+		3964E53B1557734C00136D58 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.7.sdk/System/Library/Frameworks/SystemConfiguration.framework; sourceTree = DEVELOPER_DIR; };
+		3964E53E1557736C00136D58 /* ARCSafe_MemMgmt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; name = ARCSafe_MemMgmt.h; path = ../ARCSafe_MemMgmt.h; sourceTree = "<group>"; };
+		3964E53F1557736C00136D58 /* KSReachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; name = KSReachability.h; path = ../KSReachability.h; sourceTree = "<group>"; };
+		3964E5401557736C00136D58 /* KSReachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = KSReachability.m; path = ../KSReachability.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		3964E4F61557730300136D58 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3964E53A1557733600136D58 /* SystemConfiguration.framework in Frameworks */,
+				3964E4FE1557730300136D58 /* UIKit.framework in Frameworks */,
+				3964E5001557730300136D58 /* Foundation.framework in Frameworks */,
+				3964E5021557730300136D58 /* CoreGraphics.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3964E5191557731300136D58 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3964E53C1557734C00136D58 /* SystemConfiguration.framework in Frameworks */,
+				3964E51F1557731300136D58 /* Cocoa.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		3964E4EC155772F500136D58 = {
+			isa = PBXGroup;
+			children = (
+				3964E53D1557735C00136D58 /* KSReachability */,
+				3964E5031557730300136D58 /* iOSReachability */,
+				3964E5241557731300136D58 /* MacReachability */,
+				3964E4FC1557730300136D58 /* Frameworks */,
+				3964E4FA1557730300136D58 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		3964E4FA1557730300136D58 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				3964E4F91557730300136D58 /* iOSReachability.app */,
+				3964E51C1557731300136D58 /* MacReachability.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		3964E4FC1557730300136D58 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				3964E5391557733600136D58 /* SystemConfiguration.framework */,
+				3964E4FD1557730300136D58 /* UIKit.framework */,
+				3964E4FF1557730300136D58 /* Foundation.framework */,
+				3964E5011557730300136D58 /* CoreGraphics.framework */,
+				3964E51E1557731300136D58 /* Cocoa.framework */,
+				3964E5201557731300136D58 /* Other Frameworks */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		3964E5031557730300136D58 /* iOSReachability */ = {
+			isa = PBXGroup;
+			children = (
+				3964E50C1557730300136D58 /* AppDelegate.h */,
+				3964E50D1557730300136D58 /* AppDelegate.m */,
+				3964E50F1557730300136D58 /* ViewController.h */,
+				3964E5101557730300136D58 /* ViewController.m */,
+				3964E5121557730300136D58 /* ViewController.xib */,
+				3964E5041557730300136D58 /* Supporting Files */,
+			);
+			path = iOSReachability;
+			sourceTree = "<group>";
+		};
+		3964E5041557730300136D58 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				3964E5051557730300136D58 /* iOSReachability-Info.plist */,
+				3964E5061557730300136D58 /* InfoPlist.strings */,
+				3964E5091557730300136D58 /* main.m */,
+				3964E50B1557730300136D58 /* iOSReachability-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		3964E5201557731300136D58 /* Other Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				3964E53B1557734C00136D58 /* SystemConfiguration.framework */,
+				3964E5211557731300136D58 /* AppKit.framework */,
+				3964E5221557731300136D58 /* CoreData.framework */,
+				3964E5231557731300136D58 /* Foundation.framework */,
+			);
+			name = "Other Frameworks";
+			sourceTree = "<group>";
+		};
+		3964E5241557731300136D58 /* MacReachability */ = {
+			isa = PBXGroup;
+			children = (
+				3964E5301557731400136D58 /* AppDelegate.h */,
+				3964E5311557731400136D58 /* AppDelegate.m */,
+				3964E5331557731400136D58 /* MainMenu.xib */,
+				3964E5251557731400136D58 /* Supporting Files */,
+			);
+			path = MacReachability;
+			sourceTree = "<group>";
+		};
+		3964E5251557731400136D58 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				3964E5261557731400136D58 /* MacReachability-Info.plist */,
+				3964E5271557731400136D58 /* InfoPlist.strings */,
+				3964E52A1557731400136D58 /* main.m */,
+				3964E52C1557731400136D58 /* MacReachability-Prefix.pch */,
+				3964E52D1557731400136D58 /* Credits.rtf */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		3964E53D1557735C00136D58 /* KSReachability */ = {
+			isa = PBXGroup;
+			children = (
+				3964E53E1557736C00136D58 /* ARCSafe_MemMgmt.h */,
+				3964E53F1557736C00136D58 /* KSReachability.h */,
+				3964E5401557736C00136D58 /* KSReachability.m */,
+			);
+			name = KSReachability;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		3964E4F81557730300136D58 /* iOSReachability */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3964E5151557730300136D58 /* Build configuration list for PBXNativeTarget "iOSReachability" */;
+			buildPhases = (
+				3964E4F51557730300136D58 /* Sources */,
+				3964E4F61557730300136D58 /* Frameworks */,
+				3964E4F71557730300136D58 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = iOSReachability;
+			productName = iOSReachability;
+			productReference = 3964E4F91557730300136D58 /* iOSReachability.app */;
+			productType = "com.apple.product-type.application";
+		};
+		3964E51B1557731300136D58 /* MacReachability */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3964E5361557731400136D58 /* Build configuration list for PBXNativeTarget "MacReachability" */;
+			buildPhases = (
+				3964E5181557731300136D58 /* Sources */,
+				3964E5191557731300136D58 /* Frameworks */,
+				3964E51A1557731300136D58 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = MacReachability;
+			productName = MacReachability;
+			productReference = 3964E51C1557731300136D58 /* MacReachability.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		3964E4EE155772F500136D58 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0430;
+			};
+			buildConfigurationList = 3964E4F1155772F500136D58 /* Build configuration list for PBXProject "KSReachability-Examples" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 3964E4EC155772F500136D58;
+			productRefGroup = 3964E4FA1557730300136D58 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				3964E4F81557730300136D58 /* iOSReachability */,
+				3964E51B1557731300136D58 /* MacReachability */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		3964E4F71557730300136D58 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3964E5081557730300136D58 /* InfoPlist.strings in Resources */,
+				3964E5141557730300136D58 /* ViewController.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3964E51A1557731300136D58 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3964E5291557731400136D58 /* InfoPlist.strings in Resources */,
+				3964E52F1557731400136D58 /* Credits.rtf in Resources */,
+				3964E5351557731400136D58 /* MainMenu.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		3964E4F51557730300136D58 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3964E50A1557730300136D58 /* main.m in Sources */,
+				3964E50E1557730300136D58 /* AppDelegate.m in Sources */,
+				3964E5111557730300136D58 /* ViewController.m in Sources */,
+				3964E5451557736C00136D58 /* KSReachability.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3964E5181557731300136D58 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3964E52B1557731400136D58 /* main.m in Sources */,
+				3964E5321557731400136D58 /* AppDelegate.m in Sources */,
+				3964E5461557736C00136D58 /* KSReachability.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		3964E5061557730300136D58 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				3964E5071557730300136D58 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		3964E5121557730300136D58 /* ViewController.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				3964E5131557730300136D58 /* en */,
+			);
+			name = ViewController.xib;
+			sourceTree = "<group>";
+		};
+		3964E5271557731400136D58 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				3964E5281557731400136D58 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		3964E52D1557731400136D58 /* Credits.rtf */ = {
+			isa = PBXVariantGroup;
+			children = (
+				3964E52E1557731400136D58 /* en */,
+			);
+			name = Credits.rtf;
+			sourceTree = "<group>";
+		};
+		3964E5331557731400136D58 /* MainMenu.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				3964E5341557731400136D58 /* en */,
+			);
+			name = MainMenu.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		3964E4F3155772F500136D58 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = Debug;
+		};
+		3964E4F4155772F500136D58 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = Release;
+		};
+		3964E5161557730300136D58 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SYSTEM_APPS_DIR)/Xcode.app/Contents/Developer/Library/Frameworks\"",
+				);
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "iOSReachability/iOSReachability-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_FILE = "iOSReachability/iOSReachability-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		3964E5171557730300136D58 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SYSTEM_APPS_DIR)/Xcode.app/Contents/Developer/Library/Frameworks\"",
+				);
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "iOSReachability/iOSReachability-Prefix.pch";
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_FILE = "iOSReachability/iOSReachability-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		3964E5371557731400136D58 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "MacReachability/MacReachability-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_FILE = "MacReachability/MacReachability-Info.plist";
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		3964E5381557731400136D58 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "MacReachability/MacReachability-Prefix.pch";
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_FILE = "MacReachability/MacReachability-Info.plist";
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		3964E4F1155772F500136D58 /* Build configuration list for PBXProject "KSReachability-Examples" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3964E4F3155772F500136D58 /* Debug */,
+				3964E4F4155772F500136D58 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		3964E5151557730300136D58 /* Build configuration list for PBXNativeTarget "iOSReachability" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3964E5161557730300136D58 /* Debug */,
+				3964E5171557730300136D58 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		3964E5361557731400136D58 /* Build configuration list for PBXNativeTarget "MacReachability" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3964E5371557731400136D58 /* Debug */,
+				3964E5381557731400136D58 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 3964E4EE155772F500136D58 /* Project object */;
+}
