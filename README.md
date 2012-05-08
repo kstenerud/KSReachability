@@ -36,9 +36,9 @@ Usage
     self.reachability = [KSReachability reachabilityToHost:hostname];
 
 #### Use blocks:
-    self.reachability.onReachabilityChanged = ^
+    self.reachability.onReachabilityChanged = ^(KSReachability* reachability)
     {
-        NSLog(@"Reachability changed to %d (blocks)", blockSelf.reachability.reachable);
+        NSLog(@"Reachability changed to %d (blocks)", reachability.reachable);
     };
 
 #### Or use NSNotifications:

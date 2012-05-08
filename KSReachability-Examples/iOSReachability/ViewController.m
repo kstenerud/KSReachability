@@ -57,6 +57,7 @@
 
 - (IBAction)onStartNewReachability:(id)sender
 {
+    #pragma unused(sender)
     __unsafe_unretained ViewController* blockSelf = self;
     NSString* hostname = self.hostField.text;
     
@@ -69,9 +70,9 @@
     self.reachability = [KSReachability reachabilityToHost:hostname];
     
     // Set a callback.
-    self.reachability.onReachabilityChanged = ^
+    self.reachability.onReachabilityChanged = ^(KSReachability* reachability)
     {
-        NSLog(@"Reachability changed to %d (blocks)", blockSelf.reachability.reachable);
+        NSLog(@"Reachability changed to %d (blocks)", reachability.reachable);
         [blockSelf updateLabels];
     };
     
@@ -128,6 +129,9 @@
                         change:(NSDictionary *)change
                        context:(void *)context
 {
+    #pragma unused(keyPath)
+    #pragma unused(change)
+    #pragma unused(context)
     KSReachability* reachability = (KSReachability*)object;
     NSLog(@"Reachability changed to %d (KVO)", reachability.reachable);
 }

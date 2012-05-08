@@ -72,7 +72,7 @@
 /** If non-nil, called whenever reachability flags change.
  * Block will be invoked on the main thread.
  */
-@property(nonatomic,readwrite,copy) void(^onReachabilityChanged)();
+@property(nonatomic,readwrite,copy) void(^onReachabilityChanged)(KSReachability* reachability);
 
 /** The notification to send when reachability changes (nil = don't send).
  * Default = nil

@@ -143,11 +143,11 @@ static void onReachabilityChanged(SCNetworkReachabilityRef target,
                                        {
                                            dispatch_async(dispatch_get_main_queue(), ^
                                                           {
-                                                              as_autoreleasepool_start(pool);
+                                                              as_autoreleasepool_start(pool2);
                                                               
                                                               [self onReachabilityFlagsChanged:flags];
                                                               
-                                                              as_autoreleasepool_end(pool);
+                                                              as_autoreleasepool_end(pool2);
                                                           });
                                        }
                                        
@@ -253,13 +253,13 @@ static void onReachabilityChanged(SCNetworkReachabilityRef target,
         
         if(self.onReachabilityChanged != nil)
         {
-            self.onReachabilityChanged();
+            self.onReachabilityChanged(self);
         }
         
         if(self.notificationName != nil)
         {
-            [[NSNotificationCenter defaultCenter] postNotificationName:self.notificationName
-                                                                object:self];
+            NSNotificationCenter* nCenter = [NSNotificationCenter defaultCenter];
+            [nCenter postNotificationName:self.notificationName object:self];
         }
     }
 }
@@ -324,11 +324,11 @@ static void onReachabilityChanged(SCNetworkReachabilityRef target,
         self.reachability = [KSReachability reachabilityToHost:host];
         
         __unsafe_unretained KSReachableOperation* blockSelf = self;
-        self.reachability.onReachabilityChanged = ^
+        self.reachability.onReachabilityChanged = ^(KSReachability* reachability)
         {
-            if(blockSelf.reachability.reachable)
+            if(reachability.reachable)
             {
-                if(allowWWAN || !blockSelf.reachability.WWANOnly)
+                if(allowWWAN || !reachability.WWANOnly)
                 {
                     block();
                     blockSelf.reachability = nil;
