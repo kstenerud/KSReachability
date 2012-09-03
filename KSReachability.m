@@ -84,7 +84,7 @@ static void onReachabilityChanged(SCNetworkReachabilityRef target,
     address.sin_family = AF_INET;
     address.sin_addr.s_addr = htonl(IN_LINKLOCALNETNUM);
     
-    return [[self alloc] initWithAddress:(const struct sockaddr*)&address];
+    return as_autorelease([[self alloc] initWithAddress:(const struct sockaddr*)&address]);
 }
 
 - (id) initWithHost:(NSString*) hostname
