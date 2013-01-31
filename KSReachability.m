@@ -323,15 +323,16 @@ static void onReachabilityChanged(SCNetworkReachabilityRef target,
     {
         self.reachability = [KSReachability reachabilityToHost:host];
         
-        __unsafe_unretained KSReachableOperation* blockSelf = self;
+        __weak KSReachableOperation* blockSelf = self;
         self.reachability.onReachabilityChanged = ^(KSReachability* reachability)
         {
+            __strong KSReachableOperation* strongSelf = blockSelf;
             if(reachability.reachable)
             {
                 if(allowWWAN || !reachability.WWANOnly)
                 {
                     block();
-                    blockSelf.reachability = nil;
+                    strongSelf.reachability = nil;
                 }
             }
         };
