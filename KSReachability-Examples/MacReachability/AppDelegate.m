@@ -7,7 +7,7 @@
 //
 
 #import "AppDelegate.h"
-#import "KSReachability.h"
+#import <KSReachabilityMac/KSReachability.h>
 
 @interface AppDelegate ()
 

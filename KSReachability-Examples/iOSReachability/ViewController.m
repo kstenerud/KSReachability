@@ -7,7 +7,7 @@
 //
 
 #import "ViewController.h"
-#import "KSReachability.h"
+#import <KSReachability/KSReachability.h>
 
 @interface ViewController ()
 
