@@ -168,35 +168,6 @@ static void onReachabilityChanged(SCNetworkReachabilityRef target,
                        {
                            @synchronized(self)
                            {
-                               if([self.hostname length] > 0)
-                               {
-                                   // Manually lookup hostname since SCNetworkReachabilityGetFlags
-                                   // will silently fail on DNS errors.
-                                   // The address will be cached so this doesn't slow anything down.
-                                   struct hostent* hent = gethostbyname([self.hostname UTF8String]);
-                                   if(hent == NULL)
-                                   {
-                                       NSString* error = nil;
-                                       switch (h_errno)
-                                       {
-                                           case HOST_NOT_FOUND:
-                                               error = @"Host not found";
-                                               break;
-                                           case TRY_AGAIN:
-                                               error = @"No authoritative name server available to resolve address";
-                                               break;
-                                           case NO_DATA:
-                                               error = @"Host exists but has no assigned address";
-                                               break;
-                                           default:
-                                               error = [NSString stringWithFormat:@"Unrecoverable error (%d) fetching address", h_errno];
-                                       }
-                                       NSLog(@"KSReachability Error: %s: Host lookup for %@ failed: %@", __PRETTY_FUNCTION__, self.hostname, error);
-                                       [self setFailedState];
-                                       return;
-                                   }
-                               }
-
                                // Need to do manual flags update BEFORE scheduling the run loop or else
                                // the two interfere with each other.
                                SCNetworkReachabilityFlags flags = 0;
