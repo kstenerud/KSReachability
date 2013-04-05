@@ -28,35 +28,44 @@
 #import <SystemConfiguration/SystemConfiguration.h>
 
 
-/** This is the notification name used in the Apple reachability example. */
+/** This is the notification name used in the Apple reachability example.
+ * It is not used internally, and is merely a suggested notification name.
+ */
 #define kDefaultNetworkReachabilityChangedNotification @"kNetworkReachabilityChangedNotification"
 
 
+typedef enum
+{
+    KSReachabilityState_Failed, // Instance failed to initialize. Properties will NEVER be valid.
+    KSReachabilityState_Initializing, // Instance is initializing. Properties are not valid yet.
+    KSReachabilityState_Valid, // Fully operational. All properties are valid.
+} KSReachabilityState;
+
+
 /** Monitors network connectivity.
- *
- * Note: Upon construction, this object will fetch its initial reachability
- * state in the background. This means that the reachability status will ALWAYS
- * be "unreachable" until some time after object construction. If you want
- * the true reachability state before the current code block ends, you can call
- * updateFlags. Note, however, that it will probably block.
  *
  * You can elect to be notified via blocks (onReachabilityChanged),
  * notifications (notificationName), or KVO (flags, reachable, and WWANOnly).
  *
  * All notification methods are disabled by default.
+ *
+ * Note: Upon construction, this object will fetch its initial reachability
+ * state in the background. This means that the reachability status will ALWAYS
+ * be "unreachable" until some time after object construction. Use the "state"
+ * property to monitor initialization.
  */
 @interface KSReachability : NSObject
 
 #pragma mark Constructors
 
-/** Reachability to a specific host.
+/** Reachability to a specific host. Returns nil if an initialization error occurs.
  *
  * @param hostname The name or IP address of the host to monitor. If nil or
  *                 empty string, check reachability to the internet in general.
  */
 + (KSReachability*) reachabilityToHost:(NSString*) hostname;
 
-/** Reachability to the local (wired or wifi) network.
+/** Reachability to the local (wired or wifi) network. Returns nil if an initialization error occurs.
  */
 + (KSReachability*) reachabilityToLocalNetwork;
 
@@ -72,7 +81,7 @@
 /** If non-nil, called whenever reachability flags change.
  * Block will be invoked on the main thread.
  */
-@property(nonatomic,readwrite,copy) void(^onReachabilityChanged)(KSReachability* reachability);
+@property(atomic,readwrite,copy) void(^onReachabilityChanged)(KSReachability* reachability);
 
 /** The notification to send when reachability changes (nil = don't send).
  * Default = nil
@@ -82,24 +91,23 @@
 
 #pragma mark KVO Compliant Status Properties
 
-/** The current reachability flags. */
+/** The current reachability flags.
+ * This property will always report 0 while state is KSReachabilityState_Initializing.
+ */
 @property(nonatomic,readonly,assign) SCNetworkReachabilityFlags flags;
 
-/** Whether the host is reachable or not. */
+/** Whether the host is reachable or not.
+ * This property will always report NO while state is KSReachabilityState_Initializing.
+ */
 @property(nonatomic,readonly,assign) BOOL reachable;
 
-/* If YES, the host is only reachable by WWAN (iOS only). */
+/* If YES, the host is only reachable by WWAN (iOS only).
+ * This property will always report NO while state is KSReachabilityState_Initializing.
+ */
 @property(nonatomic,readonly,assign) BOOL WWANOnly;
 
-
-#pragma mark Utility
-
-/** Force updating of the reachability flags.
- * This method will potentially block.
- *
- * @return YES if the flags were successfully updated.
- */
-- (BOOL) updateFlags;
+/** The current state of this instance. */
+@property(atomic,readonly,assign) KSReachabilityState state;
 
 @end
 
@@ -111,7 +119,7 @@
  */
 @interface KSReachableOperation: NSObject
 
-/** Constructor.
+/** Constructor. Returns nil if an initialization error occurs.
  *
  * @param hostname The name or IP address of the host to monitor. If nil or
  *                 empty string, check reachability to the internet in general.
@@ -127,7 +135,22 @@
                                   allowWWAN:(BOOL) allowWWAN
                                       block:(void(^)()) block;
 
-/** Constructor.
+/** Constructor. Returns nil if an initialization error occurs.
+ *
+ * @param reachability A reachability instance. Note: This object will overwrite
+ *                     the onReachabilityChanged property.
+ *
+ * @param allowWWAN If NO, a WWAN-only connection is not enough to trigger
+ *                  this operation.
+ *
+ * @param block The block to invoke when the host becomes reachable.
+ *              Block will be invoked on the main thread.
+ */
++ (KSReachableOperation*) operationWithReachability:(KSReachability*) reachability
+                                          allowWWAN:(BOOL) allowWWAN
+                                              block:(void(^)()) block;
+
+/** Initializer. Returns nil if an initialization error occurs.
  *
  * @param hostname The name or IP address of the host to monitor. If nil or
  *                 empty string, check reachability to the internet in general.
@@ -142,5 +165,23 @@
 - (id) initWithHost:(NSString*) hostname
           allowWWAN:(BOOL) allowWWAN
               block:(void(^)()) block;
+
+/** Initializer. Returns nil if an initialization error occurs.
+ *
+ * @param reachability A reachability instance. Note: This object will overwrite
+ *                     the onReachabilityChanged property.
+ *
+ * @param allowWWAN If NO, a WWAN-only connection is not enough to trigger
+ *                  this operation.
+ *
+ * @param block The block to invoke when the host becomes reachable.
+ *              Block will be invoked on the main thread.
+ */
+- (id) initWithReachability:(KSReachability*) reachability
+                  allowWWAN:(BOOL) allowWWAN
+                      block:(void(^)()) block;
+
+/** Access to internal reachability instance. Use this to monitor for errors. */
+@property(nonatomic,readonly,retain) KSReachability* reachability;
 
 @end

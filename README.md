@@ -21,7 +21,7 @@ Features
 
 - Notifications/callbacks via NSNotification, blocks, and KVO.
 - Fetching status values doesn't block.
-- Callbacks always occur on the main thread, so it's UI-safe.
+- Callbacks and KVO always occur on the main thread, so it's UI-safe.
 - KSReachableOperation: A one-shot operation to perform when reachability is established.
 - Supports iOS and Mac OS X.
 - Can be built with or without ARC, in CLANG or GCC.
@@ -82,6 +82,24 @@ Usage
                                    [self showAlertWithTitle:@"One-time message"
                                                     message:@"Host is reachable!"];
                                }];
+
+Caveats
+-------
+
+DNS lookups will block, sometimes for up to 10 seconds. KSReachability avoids
+blocking the calling thread by running the lookup in the background, but as
+a result, its properties will report unreachable until the lookup completes.
+To handle this, KSReachability exposes a KVO compliant property "state" which
+will be one of the following:
+
+  - KSReachabilityState_Initializing: Properties not valid yet.
+  - KSReachabilityState_Failed: Initialization failed. Instance should be disposed of.
+  - KSReachabilityState_Valid: All properties are valid.
+
+The failed state is a necessary evil since the object is returned before
+initialization completes in the background. It will trigger if, for example,
+you pass it a non-existent or invalid hostname. KSReachability will also print an
+error message to the console if something fails.
 
 
 Full Example

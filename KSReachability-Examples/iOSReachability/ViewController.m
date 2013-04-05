@@ -13,6 +13,7 @@
 
 @property(strong,nonatomic) KSReachability* reachability;
 @property(strong,nonatomic) KSReachableOperation* reachableOperation;
+@property(strong,nonatomic) UIActivityIndicatorView* activityIndicator;
 
 - (void) updateLabels;
 
@@ -40,6 +41,8 @@
                                              selector:@selector(onReachabilityChanged:)
                                                  name:kDefaultNetworkReachabilityChangedNotification
                                                object:nil];
+
+    self.activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
     
     [self updateLabels];
 }
@@ -55,8 +58,22 @@
     self.reachableOperation = nil;
 }
 
+- (void)startBusySpinner
+{
+    self.activityIndicator.center = self.view.center;
+    [self.view addSubview:self.activityIndicator];
+    [self.activityIndicator startAnimating];
+}
+
+- (void)stopBusySpinner
+{
+    [self.activityIndicator stopAnimating];
+    [self.activityIndicator removeFromSuperview];
+}
+
 - (IBAction)onStartNewReachability:(id)sender
 {
+    [self startBusySpinner];
     #pragma unused(sender)
     __unsafe_unretained ViewController* blockSelf = self;
     NSString* hostname = self.hostField.text;
@@ -68,7 +85,7 @@
     
     // Create a new reachability object.
     self.reachability = [KSReachability reachabilityToHost:hostname];
-    
+
     // Set a callback.
     self.reachability.onReachabilityChanged = ^(KSReachability* reachability)
     {
@@ -91,6 +108,7 @@
                                                             allowWWAN:NO
                                                                 block:^
                                {
+                                   [self stopBusySpinner];
                                    [self showAlertWithTitle:@"One-time message"
                                                     message:@"Host is reachable!"];
                                }];

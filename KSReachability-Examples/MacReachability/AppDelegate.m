@@ -92,7 +92,7 @@
 - (void) updateLabels
 {
     SCNetworkReachabilityFlags flags = self.reachability.flags;
-    [self.flagsLabel setStringValue:[NSString stringWithFormat:@"%c%c %c%c%c%c%c%c%c",
+    [self.flagsLabel setStringValue:[NSString stringWithFormat:@"%c%c %c%c%c%c%c%c",
                                      (flags & kSCNetworkReachabilityFlagsReachable)            ? 'R' : '-',
                                      
                                      (flags & kSCNetworkReachabilityFlagsTransientConnection)  ? 't' : '-',
