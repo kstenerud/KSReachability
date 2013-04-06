@@ -36,11 +36,13 @@
 #if __has_feature(objc_arc)
     #define as_release(X)
     #define as_autorelease(X)        (X)
+    #define as_autorelease_noref(X)
     #define as_superdealloc()
     #define as_bridge                __bridge
 #else
     #define as_release(X)           [(X) release]
     #define as_autorelease(X)       [(X) autorelease]
+    #define as_autorelease_noref(X) [(X) autorelease]
     #define as_superdealloc()       [super dealloc]
     #define as_bridge
 #endif
@@ -70,7 +72,7 @@
 @property(nonatomic,readwrite,assign) BOOL reachable;
 @property(nonatomic,readwrite,assign) BOOL WWANOnly;
 @property(nonatomic,readwrite,assign) SCNetworkReachabilityRef reachabilityRef;
-@property(atomic,readwrite,assign) KSReachabilityState state;
+@property(atomic,readwrite,assign) BOOL initialized;
 
 @end
 
@@ -81,6 +83,7 @@ static void onReachabilityChanged(SCNetworkReachabilityRef target,
 
 @implementation KSReachability
 
+@synthesize onInitializationComplete = _onInitializationComplete;
 @synthesize onReachabilityChanged = _onReachabilityChanged;
 @synthesize flags = _flags;
 @synthesize reachable = _reachable;
@@ -88,7 +91,7 @@ static void onReachabilityChanged(SCNetworkReachabilityRef target,
 @synthesize reachabilityRef = _reachabilityRef;
 @synthesize hostname = _hostname;
 @synthesize notificationName = _notificationName;
-@synthesize state = _state;
+@synthesize initialized = _initialized;
 
 + (KSReachability*) reachabilityToHost:(NSString*) hostname
 {
@@ -137,94 +140,52 @@ static void onReachabilityChanged(SCNetworkReachabilityRef target,
         if(reachabilityRef == NULL)
         {
             NSLog(@"KSReachability Error: %s: Could not resolve reachability destination", __PRETTY_FUNCTION__);
-            as_release(self);
-            self = nil;
+            goto init_failed;
         }
         else
         {
-            self.state = KSReachabilityState_Initializing;
             self.hostname = hostname;
-            [self installReachability:reachabilityRef];
+            self.reachabilityRef = reachabilityRef;
+
+            SCNetworkReachabilityContext context = {0, (as_bridge void*)self, NULL,  NULL, NULL};
+            if(!SCNetworkReachabilitySetCallback(self.reachabilityRef,
+                                                 onReachabilityChanged,
+                                                 &context))
+            {
+                NSLog(@"KSReachability Error: %s: SCNetworkReachabilitySetCallback failed", __PRETTY_FUNCTION__);
+                goto init_failed;
+            }
+
+            if(!SCNetworkReachabilityScheduleWithRunLoop(self.reachabilityRef,
+                                                         CFRunLoopGetMain(),
+                                                         kCFRunLoopDefaultMode))
+            {
+                NSLog(@"KSReachability Error: %s: SCNetworkReachabilityScheduleWithRunLoop failed", __PRETTY_FUNCTION__);
+                goto init_failed;
+            }
         }
     }
+    return self;
+
+init_failed:
+    as_release(self);
+    self = nil;
     return self;
 }
 
 - (void) dealloc
 {
-    [self uninstallReachability];
+    if(_reachabilityRef != NULL)
+    {
+        SCNetworkReachabilityUnscheduleFromRunLoop(_reachabilityRef,
+                                                   CFRunLoopGetCurrent(),
+                                                   kCFRunLoopDefaultMode);
+        CFRelease(_reachabilityRef);
+    }
     as_release(_hostname);
     as_release(_notificationName);
     as_release(_onReachabilityChanged);
     as_superdealloc();
-}
-
-- (void) installReachability:(SCNetworkReachabilityRef) reachabilityRef
-{
-    @synchronized(self)
-    {
-        self.reachabilityRef = reachabilityRef;
-        dispatch_async(dispatch_get_global_queue(0,0), ^
-                       {
-                           @synchronized(self)
-                           {
-                               // Need to do manual flags update BEFORE scheduling the run loop or else
-                               // the two interfere with each other.
-                               SCNetworkReachabilityFlags flags = 0;
-                               if(SCNetworkReachabilityGetFlags(self.reachabilityRef, &flags))
-                               {
-                                   [self onReachabilityFlagsChanged:flags];
-                               }
-                               else
-                               {
-                                   NSLog(@"KSReachability Error: %s: SCNetworkReachabilityGetFlags failed", __PRETTY_FUNCTION__);
-                                   [self setFailedState];
-                                   return;
-                               }
-
-                               SCNetworkReachabilityContext context = {0, (as_bridge void*)self, NULL,  NULL, NULL};
-                               if(!SCNetworkReachabilitySetCallback(self.reachabilityRef,
-                                                                    onReachabilityChanged,
-                                                                    &context))
-                               {
-                                   NSLog(@"KSReachability Error: %s: SCNetworkReachabilitySetCallback failed", __PRETTY_FUNCTION__);
-                                   [self setFailedState];
-                                   return;
-                               }
-
-                               if(!SCNetworkReachabilityScheduleWithRunLoop(self.reachabilityRef,
-                                                                            CFRunLoopGetCurrent(),
-                                                                            kCFRunLoopDefaultMode))
-                               {
-                                   NSLog(@"KSReachability Error: %s: SCNetworkReachabilityScheduleWithRunLoop failed", __PRETTY_FUNCTION__);
-                                   [self setFailedState];
-                                   return;
-                               }
-                           }
-                       });
-    }
-}
-
-- (void) uninstallReachability
-{
-    @synchronized(self)
-    {
-        if(self.reachabilityRef != NULL)
-        {
-            SCNetworkReachabilityUnscheduleFromRunLoop(self.reachabilityRef,
-                                                       CFRunLoopGetCurrent(),
-                                                       kCFRunLoopDefaultMode);
-            CFRelease(self.reachabilityRef);
-            self.reachabilityRef = NULL;
-        }
-    }
-}
-
-- (void) setFailedState
-{
-    self.state = KSReachabilityState_Failed;
-    self.flags = 0;
-    [self uninstallReachability];
 }
 
 - (NSString*) extractHostName:(NSString*) potentialURL
@@ -275,16 +236,53 @@ static void onReachabilityChanged(SCNetworkReachabilityRef target,
     return NO;
 }
 
-- (void) onReachabilityFlagsChanged:(SCNetworkReachabilityFlags) flags
+- (KSReachabilityCallback) onInitializationComplete
 {
     @synchronized(self)
     {
-        if(self.state == KSReachabilityState_Failed)
-        {
-            return;
-        }
+        return _onInitializationComplete;
+    }
+}
 
-        if(_flags != flags || self.state == KSReachabilityState_Initializing)
+- (void) setOnInitializationComplete:(KSReachabilityCallback) onInitializationComplete
+{
+    @synchronized(self)
+    {
+        as_autorelease_noref(_onInitializationComplete);
+        _onInitializationComplete = [onInitializationComplete copy];
+        if(self.initialized)
+        {
+            dispatch_async(dispatch_get_main_queue(), ^
+                           {
+                               as_autoreleasepool_start(pool);
+                               [self callInitializationComplete];
+                               as_autoreleasepool_end(pool);
+                           });
+        }
+    }
+}
+
+- (void) callInitializationComplete
+{
+    @synchronized(self)
+    {
+        KSReachabilityCallback callback = self.onInitializationComplete;
+        self.onInitializationComplete = nil;
+        if(callback != nil)
+        {
+            callback(self);
+        }
+    }
+}
+
+- (void) onReachabilityFlagsChanged:(SCNetworkReachabilityFlags) flags
+{
+    // This always gets called on the main run loop.
+    @synchronized(self)
+    {
+        BOOL wasInitialized = self.initialized;
+
+        if(_flags != flags || !wasInitialized)
         {
             BOOL reachable = [self isReachableWithFlags:flags];
 #if TARGET_OS_IPHONE
@@ -292,54 +290,50 @@ static void onReachabilityChanged(SCNetworkReachabilityRef target,
 #else
             BOOL WWANOnly = NO;
 #endif
+            BOOL rChanged = (_reachable != reachable) || !wasInitialized;
+            BOOL wChanged = (_WWANOnly != WWANOnly) || !wasInitialized;
 
-            BOOL rChanged = (_reachable != reachable) || self.state == KSReachabilityState_Initializing;
-            BOOL wChanged = (_WWANOnly != WWANOnly) || self.state == KSReachabilityState_Initializing;
+            [self willChangeValueForKey:kKVOProperty_Flags];
+            if(rChanged) [self willChangeValueForKey:kKVOProperty_Reachable];
+            if(wChanged) [self willChangeValueForKey:kKVOProperty_WWANOnly];
 
-            dispatch_async(dispatch_get_main_queue(), ^
-                           {
-                               as_autoreleasepool_start(pool);
+            _flags = flags;
+            _reachable = reachable;
+            _WWANOnly = WWANOnly;
 
-                               [self willChangeValueForKey:kKVOProperty_Flags];
-                               if(rChanged) [self willChangeValueForKey:kKVOProperty_Reachable];
-                               if(wChanged) [self willChangeValueForKey:kKVOProperty_WWANOnly];
+            if(!wasInitialized)
+            {
+                self.initialized = YES;
+            }
 
-                               _flags = flags;
-                               _reachable = reachable;
-                               _WWANOnly = WWANOnly;
+            [self didChangeValueForKey:kKVOProperty_Flags];
+            if(rChanged) [self didChangeValueForKey:kKVOProperty_Reachable];
+            if(wChanged) [self didChangeValueForKey:kKVOProperty_WWANOnly];
 
-                               if(self.state == KSReachabilityState_Initializing)
-                               {
-                                   self.state = KSReachabilityState_Valid;
-                               }
+            if(self.onReachabilityChanged != nil)
+            {
+                self.onReachabilityChanged(self);
+            }
 
-                               [self didChangeValueForKey:kKVOProperty_Flags];
-                               if(rChanged) [self didChangeValueForKey:kKVOProperty_Reachable];
-                               if(wChanged) [self didChangeValueForKey:kKVOProperty_WWANOnly];
+            if(self.notificationName != nil)
+            {
+                NSNotificationCenter* nCenter = [NSNotificationCenter defaultCenter];
+                [nCenter postNotificationName:self.notificationName object:self];
+            }
 
-                               if(self.onReachabilityChanged != nil)
-                               {
-                                   self.onReachabilityChanged(self);
-                               }
-
-                               if(self.notificationName != nil)
-                               {
-                                   NSNotificationCenter* nCenter = [NSNotificationCenter defaultCenter];
-                                   [nCenter postNotificationName:self.notificationName object:self];
-                               }
-
-                               as_autoreleasepool_end(pool);
-                           });
+            if(!wasInitialized)
+            {
+                [self callInitializationComplete];
+            }
         }
     }
 }
 
 
-static void onReachabilityChanged(SCNetworkReachabilityRef target,
+static void onReachabilityChanged(__unused SCNetworkReachabilityRef target,
                                   SCNetworkReachabilityFlags flags,
                                   void* info)
 {
-#pragma unused(target)
     KSReachability* reachability = (as_bridge KSReachability*) info;
     [reachability onReachabilityFlagsChanged:flags];
 }
@@ -364,7 +358,7 @@ static void onReachabilityChanged(SCNetworkReachabilityRef target,
 
 + (KSReachableOperation*) operationWithHost:(NSString*) host
                                   allowWWAN:(BOOL) allowWWAN
-                                      block:(void(^)()) block
+                                      block:(dispatch_block_t) block
 {
     return as_autorelease([[self alloc] initWithHost:host
                                            allowWWAN:allowWWAN
@@ -373,7 +367,7 @@ static void onReachabilityChanged(SCNetworkReachabilityRef target,
 
 + (KSReachableOperation*) operationWithReachability:(KSReachability*) reachability
                                           allowWWAN:(BOOL) allowWWAN
-                                              block:(void(^)()) block
+                                              block:(dispatch_block_t) block
 {
     return as_autorelease([[self alloc] initWithReachability:reachability
                                                    allowWWAN:allowWWAN
@@ -382,7 +376,7 @@ static void onReachabilityChanged(SCNetworkReachabilityRef target,
 
 - (id) initWithHost:(NSString*) host
           allowWWAN:(BOOL) allowWWAN
-              block:(void(^)()) block
+              block:(dispatch_block_t) block
 {
     return [self initWithReachability:[KSReachability reachabilityToHost:host]
                             allowWWAN:allowWWAN
@@ -391,12 +385,12 @@ static void onReachabilityChanged(SCNetworkReachabilityRef target,
 
 - (id) initWithReachability:(KSReachability*) reachability
                   allowWWAN:(BOOL) allowWWAN
-                      block:(void(^)()) block
+                      block:(dispatch_block_t) block
 {
     if((self = [super init]))
     {
         self.reachability = reachability;
-        if(self.reachability == nil)
+        if(self.reachability == nil || block == nil)
         {
             as_release(self);
             self = nil;
@@ -404,22 +398,22 @@ static void onReachabilityChanged(SCNetworkReachabilityRef target,
         else
         {
             block = as_autorelease([block copy]);
-            void(^onReachabilityChanged)(KSReachability* reachability) = ^(KSReachability* reachability2)
+            KSReachabilityCallback onReachabilityChanged = ^(KSReachability* reachability2)
             {
-                if(reachability2.state == KSReachabilityState_Valid &&
-                   reachability2.reachable &&
-                   (allowWWAN || !reachability2.WWANOnly))
+                @synchronized(reachability2)
                 {
-                    reachability2.onReachabilityChanged = nil;
-                    block();
+                    if(reachability2.onReachabilityChanged != nil &&
+                       reachability2.reachable &&
+                       (allowWWAN || !reachability2.WWANOnly))
+                    {
+                        reachability2.onReachabilityChanged = nil;
+                        dispatch_async(dispatch_get_main_queue(), block);
+                    }
                 }
             };
 
             self.reachability.onReachabilityChanged = onReachabilityChanged;
-            if(self.reachability.state == KSReachabilityState_Valid)
-            {
-                onReachabilityChanged(self.reachability);
-            }
+            onReachabilityChanged(self.reachability);
         }
     }
     return self;

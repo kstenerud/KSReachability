@@ -34,12 +34,9 @@
 #define kDefaultNetworkReachabilityChangedNotification @"kNetworkReachabilityChangedNotification"
 
 
-typedef enum
-{
-    KSReachabilityState_Failed, // Instance failed to initialize. Properties will NEVER be valid.
-    KSReachabilityState_Initializing, // Instance is initializing. Properties are not valid yet.
-    KSReachabilityState_Valid, // Fully operational. All properties are valid.
-} KSReachabilityState;
+@class KSReachability;
+
+typedef void(^KSReachabilityCallback)(KSReachability* reachability);
 
 
 /** Monitors network connectivity.
@@ -51,8 +48,9 @@ typedef enum
  *
  * Note: Upon construction, this object will fetch its initial reachability
  * state in the background. This means that the reachability status will ALWAYS
- * be "unreachable" until some time after object construction. Use the "state"
- * property to monitor initialization.
+ * be "unreachable" until some time after object construction (possibly up to 10
+ * seconds, depending on how long the DNS lookup takes). Use the "initialized"
+ * property to monitor initialization, or set the callback "onInitializationComplete".
  */
 @interface KSReachability : NSObject
 
@@ -78,10 +76,17 @@ typedef enum
 
 #pragma mark Notifications and Callbacks
 
+/** If non-nil, called when the KSReachability object has finished initializing.
+ * If initialization has already completed, calls on the next main thread run loop.
+ * This block will only be called once, and then discarded (released).
+ * Block will be invoked on the main thread.
+ */
+@property(atomic,readwrite,copy) KSReachabilityCallback onInitializationComplete;
+
 /** If non-nil, called whenever reachability flags change.
  * Block will be invoked on the main thread.
  */
-@property(atomic,readwrite,copy) void(^onReachabilityChanged)(KSReachability* reachability);
+@property(atomic,readwrite,copy) KSReachabilityCallback onReachabilityChanged;
 
 /** The notification to send when reachability changes (nil = don't send).
  * Default = nil
@@ -92,22 +97,22 @@ typedef enum
 #pragma mark KVO Compliant Status Properties
 
 /** The current reachability flags.
- * This property will always report 0 while state is KSReachabilityState_Initializing.
+ * This property will always report 0 while "initialized" property = NO.
  */
 @property(nonatomic,readonly,assign) SCNetworkReachabilityFlags flags;
 
 /** Whether the host is reachable or not.
- * This property will always report NO while state is KSReachabilityState_Initializing.
+ * This property will always report NO while "initialized" property = NO.
  */
 @property(nonatomic,readonly,assign) BOOL reachable;
 
 /* If YES, the host is only reachable by WWAN (iOS only).
- * This property will always report NO while state is KSReachabilityState_Initializing.
+ * This property will always report NO while "initialized" property = NO.
  */
 @property(nonatomic,readonly,assign) BOOL WWANOnly;
 
-/** The current state of this instance. */
-@property(atomic,readonly,assign) KSReachabilityState state;
+/** If YES, this object's status properties are valid. */
+@property(atomic,readonly,assign) BOOL initialized;
 
 @end
 
@@ -133,7 +138,7 @@ typedef enum
  */
 + (KSReachableOperation*) operationWithHost:(NSString*) hostname
                                   allowWWAN:(BOOL) allowWWAN
-                                      block:(void(^)()) block;
+                                      block:(dispatch_block_t) block;
 
 /** Constructor. Returns nil if an initialization error occurs.
  *
@@ -148,7 +153,7 @@ typedef enum
  */
 + (KSReachableOperation*) operationWithReachability:(KSReachability*) reachability
                                           allowWWAN:(BOOL) allowWWAN
-                                              block:(void(^)()) block;
+                                              block:(dispatch_block_t) block;
 
 /** Initializer. Returns nil if an initialization error occurs.
  *
@@ -164,7 +169,7 @@ typedef enum
  */
 - (id) initWithHost:(NSString*) hostname
           allowWWAN:(BOOL) allowWWAN
-              block:(void(^)()) block;
+              block:(dispatch_block_t) block;
 
 /** Initializer. Returns nil if an initialization error occurs.
  *
@@ -179,7 +184,7 @@ typedef enum
  */
 - (id) initWithReachability:(KSReachability*) reachability
                   allowWWAN:(BOOL) allowWWAN
-                      block:(void(^)()) block;
+                      block:(dispatch_block_t) block;
 
 /** Access to internal reachability instance. Use this to monitor for errors. */
 @property(nonatomic,readonly,retain) KSReachability* reachability;

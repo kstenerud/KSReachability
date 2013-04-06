@@ -86,10 +86,16 @@
     // Create a new reachability object.
     self.reachability = [KSReachability reachabilityToHost:hostname];
 
+    // Find out when initialization has completed.
+    self.reachability.onInitializationComplete = ^(KSReachability* reachability)
+    {
+        NSLog(@"Initialization complete. Reachability = %d. Flags = %x", reachability.reachable, reachability.flags);
+    };
+
     // Set a callback.
     self.reachability.onReachabilityChanged = ^(KSReachability* reachability)
     {
-        NSLog(@"Reachability changed to %d (blocks)", reachability.reachable);
+        NSLog(@"Reachability changed to %d. Flags = %x (blocks)", reachability.reachable, reachability.flags);
         [blockSelf updateLabels];
     };
     
@@ -139,7 +145,7 @@
 - (void) onReachabilityChanged:(NSNotification*) notification
 {
     KSReachability* reachability = (KSReachability*)notification.object;
-    NSLog(@"Reachability changed to %d (NSNotification)", reachability.reachable);
+    NSLog(@"Reachability changed to %d. Flags = %x (NSNotification)", reachability.reachable, reachability.flags);
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath
@@ -151,7 +157,7 @@
     #pragma unused(change)
     #pragma unused(context)
     KSReachability* reachability = (KSReachability*)object;
-    NSLog(@"Reachability changed to %d (KVO)", reachability.reachable);
+    NSLog(@"Reachability changed to %d. Flags = %x (KVO)", reachability.reachable, reachability.flags);
 }
 
 

@@ -86,20 +86,13 @@ Usage
 Caveats
 -------
 
-DNS lookups will block, sometimes for up to 10 seconds. KSReachability avoids
-blocking the calling thread by running the lookup in the background, but as
-a result, its properties will report unreachable until the lookup completes.
-To handle this, KSReachability exposes a KVO compliant property "state" which
-will be one of the following:
-
-  - KSReachabilityState_Initializing: Properties not valid yet.
-  - KSReachabilityState_Failed: Initialization failed. Instance should be disposed of.
-  - KSReachabilityState_Valid: All properties are valid.
-
-The failed state is a necessary evil since the object is returned before
-initialization completes in the background. It will trigger if, for example,
-you pass it a non-existent or invalid hostname. KSReachability will also print an
-error message to the console if something fails.
+KSReachability must do a DNS lookup to determine reachability to a host by
+name. Since this lookup can take upwards of 10 seconds in extreme cases, it is
+performed in the background. As a consequence, a newly created KSReachability
+object will always have its state set to unreachable until this lookup
+completes. If you need the true reachability to a host, you must wait for
+the "initialized" property to change to YES (it supports KVO). As an
+alternative, you can set the callback "onInitializationComplete".
 
 
 Full Example
