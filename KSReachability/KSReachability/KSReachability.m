@@ -178,7 +178,7 @@ init_failed:
     if(_reachabilityRef != NULL)
     {
         SCNetworkReachabilityUnscheduleFromRunLoop(_reachabilityRef,
-                                                   CFRunLoopGetCurrent(),
+                                                   CFRunLoopGetMain(),
                                                    kCFRunLoopDefaultMode);
         CFRelease(_reachabilityRef);
     }
