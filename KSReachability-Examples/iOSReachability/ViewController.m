@@ -112,7 +112,7 @@
     // Create a one-shot operation that gets fired once the host is reachable.
     self.reachableOperation = [KSReachableOperation operationWithHost:hostname
                                                             allowWWAN:NO
-                                                                block:^
+                                               onReachabilityAchieved:^
                                {
                                    [self stopBusySpinner];
                                    [self showAlertWithTitle:@"One-time message"

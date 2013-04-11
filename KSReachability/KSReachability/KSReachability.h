@@ -133,12 +133,14 @@ typedef void(^KSReachabilityCallback)(KSReachability* reachability);
  * @param allowWWAN If NO, a WWAN-only connection is not enough to trigger
  *                  this operation.
  *
- * @param block The block to invoke when the host becomes reachable.
- *              Block will be invoked on the main thread.
+ * @param onReachabilityAchieved Invoke when the host becomes reachable.
+ *                               This will be invoked ONE TIME ONLY, no matter
+ *                               how many times reachability changes.
+ *                               Block will be invoked on the main thread.
  */
 + (KSReachableOperation*) operationWithHost:(NSString*) hostname
                                   allowWWAN:(BOOL) allowWWAN
-                                      block:(dispatch_block_t) block;
+                     onReachabilityAchieved:(dispatch_block_t) onReachabilityAchieved;
 
 /** Constructor. Returns nil if an initialization error occurs.
  *
@@ -148,12 +150,14 @@ typedef void(^KSReachabilityCallback)(KSReachability* reachability);
  * @param allowWWAN If NO, a WWAN-only connection is not enough to trigger
  *                  this operation.
  *
- * @param block The block to invoke when the host becomes reachable.
- *              Block will be invoked on the main thread.
+ * @param onReachabilityAchieved Invoke when the host becomes reachable.
+ *                               This will be invoked ONE TIME ONLY, no matter
+ *                               how many times reachability changes.
+ *                               Block will be invoked on the main thread.
  */
 + (KSReachableOperation*) operationWithReachability:(KSReachability*) reachability
                                           allowWWAN:(BOOL) allowWWAN
-                                              block:(dispatch_block_t) block;
+                             onReachabilityAchieved:(dispatch_block_t) onReachabilityAchieved;
 
 /** Initializer. Returns nil if an initialization error occurs.
  *
@@ -164,12 +168,14 @@ typedef void(^KSReachabilityCallback)(KSReachability* reachability);
  * @param allowWWAN If NO, a WWAN-only connection is not enough to trigger
  *                  this operation.
  *
- * @param block The block to invoke when the host becomes reachable.
- *              Block will be invoked on the main thread.
+ * @param onReachabilityAchieved Invoke when the host becomes reachable.
+ *                               This will be invoked ONE TIME ONLY, no matter
+ *                               how many times reachability changes.
+ *                               Block will be invoked on the main thread.
  */
 - (id) initWithHost:(NSString*) hostname
           allowWWAN:(BOOL) allowWWAN
-              block:(dispatch_block_t) block;
+onReachabilityAchieved:(dispatch_block_t) onReachabilityAchieved;
 
 /** Initializer. Returns nil if an initialization error occurs.
  *
@@ -179,12 +185,14 @@ typedef void(^KSReachabilityCallback)(KSReachability* reachability);
  * @param allowWWAN If NO, a WWAN-only connection is not enough to trigger
  *                  this operation.
  *
- * @param block The block to invoke when the host becomes reachable.
- *              Block will be invoked on the main thread.
+ * @param onReachabilityAchieved Invoke when the host becomes reachable.
+ *                               This will be invoked ONE TIME ONLY, no matter
+ *                               how many times reachability changes.
+ *                               Block will be invoked on the main thread.
  */
 - (id) initWithReachability:(KSReachability*) reachability
                   allowWWAN:(BOOL) allowWWAN
-                      block:(dispatch_block_t) block;
+     onReachabilityAchieved:(dispatch_block_t) onReachabilityAchieved;
 
 /** Access to internal reachability instance. Use this to monitor for errors. */
 @property(nonatomic,readonly,retain) KSReachability* reachability;

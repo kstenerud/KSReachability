@@ -377,46 +377,46 @@ static void onReachabilityChanged(__unused SCNetworkReachabilityRef target,
 
 + (KSReachableOperation*) operationWithHost:(NSString*) host
                                   allowWWAN:(BOOL) allowWWAN
-                                      block:(dispatch_block_t) block
+                     onReachabilityAchieved:(dispatch_block_t) onReachabilityAchieved
 {
     return as_autorelease([[self alloc] initWithHost:host
                                            allowWWAN:allowWWAN
-                                               block:block]);
+                              onReachabilityAchieved:onReachabilityAchieved]);
 }
 
 + (KSReachableOperation*) operationWithReachability:(KSReachability*) reachability
                                           allowWWAN:(BOOL) allowWWAN
-                                              block:(dispatch_block_t) block
+                             onReachabilityAchieved:(dispatch_block_t) onReachabilityAchieved
 {
     return as_autorelease([[self alloc] initWithReachability:reachability
                                                    allowWWAN:allowWWAN
-                                                       block:block]);
+                                      onReachabilityAchieved:onReachabilityAchieved]);
 }
 
 - (id) initWithHost:(NSString*) host
           allowWWAN:(BOOL) allowWWAN
-              block:(dispatch_block_t) block
+onReachabilityAchieved:(dispatch_block_t) onReachabilityAchieved
 {
     return [self initWithReachability:[KSReachability reachabilityToHost:host]
                             allowWWAN:allowWWAN
-                                block:block];
+               onReachabilityAchieved:onReachabilityAchieved];
 }
 
 - (id) initWithReachability:(KSReachability*) reachability
                   allowWWAN:(BOOL) allowWWAN
-                      block:(dispatch_block_t) block
+     onReachabilityAchieved:(dispatch_block_t) onReachabilityAchieved
 {
     if((self = [super init]))
     {
         self.reachability = reachability;
-        if(self.reachability == nil || block == nil)
+        if(self.reachability == nil || onReachabilityAchieved == nil)
         {
             as_release(self);
             self = nil;
         }
         else
         {
-            block = as_autorelease([block copy]);
+            onReachabilityAchieved = as_autorelease([onReachabilityAchieved copy]);
             KSReachabilityCallback onReachabilityChanged = ^(KSReachability* reachability2)
             {
                 @synchronized(reachability2)
@@ -426,12 +426,14 @@ static void onReachabilityChanged(__unused SCNetworkReachabilityRef target,
                        (allowWWAN || !reachability2.WWANOnly))
                     {
                         reachability2.onReachabilityChanged = nil;
-                        block();
+                        onReachabilityAchieved();
                     }
                 }
             };
 
             self.reachability.onReachabilityChanged = onReachabilityChanged;
+
+            // Check once manually in case the host is already reachable.
             onReachabilityChanged(self.reachability);
         }
     }
