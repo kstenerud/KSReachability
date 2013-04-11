@@ -407,7 +407,7 @@ static void onReachabilityChanged(__unused SCNetworkReachabilityRef target,
                        (allowWWAN || !reachability2.WWANOnly))
                     {
                         reachability2.onReachabilityChanged = nil;
-                        dispatch_async(dispatch_get_main_queue(), block);
+                        block();
                     }
                 }
             };
