@@ -269,7 +269,7 @@ init_failed:
     {
         as_autorelease_noref(_onInitializationComplete);
         _onInitializationComplete = [onInitializationComplete copy];
-        if(self.initialized)
+        if(_onInitializationComplete != nil && self.initialized)
         {
             dispatch_async(dispatch_get_main_queue(), ^
                            {
