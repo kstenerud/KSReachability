@@ -47,14 +47,6 @@
     #define as_bridge
 #endif
 
-#if defined(__clang__) || __has_feature(objc_arc)
-    #define as_autoreleasepool_start(NAME) @autoreleasepool {
-    #define as_autoreleasepool_end(NAME)   }
-#else
-    #define as_autoreleasepool_start(NAME) NSAutoreleasePool* NAME = [[NSAutoreleasePool alloc] init];
-    #define as_autoreleasepool_end(NAME)   [NAME release];
-#endif
-
 
 #define kKVOProperty_Flags     @"flags"
 #define kKVOProperty_Reachable @"reachable"
@@ -169,6 +161,7 @@ static void onReachabilityChanged(SCNetworkReachabilityRef target,
             if([hostname length] == 0)
             {
                 SCNetworkReachabilityFlags flags;
+                // Note: This won't block because there's no host to look up.
                 if(!SCNetworkReachabilityGetFlags(self.reachabilityRef, &flags))
                 {
                     NSLog(@"KSReachability Error: %s: SCNetworkReachabilityGetFlags failed", __PRETTY_FUNCTION__);
@@ -177,9 +170,7 @@ static void onReachabilityChanged(SCNetworkReachabilityRef target,
 
                 dispatch_async(dispatch_get_main_queue(), ^
                                {
-                                   as_autoreleasepool_start(pool);
                                    [self onReachabilityFlagsChanged:flags];
-                                   as_autoreleasepool_end(pool);
                                });
             }
         }
@@ -255,6 +246,18 @@ init_failed:
     return NO;
 }
 
+- (BOOL) isReachableWWANOnlyWithFlags:(SCNetworkReachabilityFlags) flags
+{
+#if TARGET_OS_IPHONE
+    BOOL isReachable = [self isReachableWithFlags:flags];
+    BOOL isWWANOnly = (flags & kSCNetworkReachabilityFlagsIsWWAN) != 0;
+    return isReachable && isWWANOnly;
+#else
+#pragma unused(flags)
+    return NO;
+#endif
+}
+
 - (KSReachabilityCallback) onInitializationComplete
 {
     @synchronized(self)
@@ -273,9 +276,7 @@ init_failed:
         {
             dispatch_async(dispatch_get_main_queue(), ^
                            {
-                               as_autoreleasepool_start(pool);
                                [self callInitializationComplete];
-                               as_autoreleasepool_end(pool);
                            });
         }
     }
@@ -283,6 +284,8 @@ init_failed:
 
 - (void) callInitializationComplete
 {
+    // This method expects to be called on the main run loop so that
+    // all callbacks occur on the main run loop.
     @synchronized(self)
     {
         KSReachabilityCallback callback = self.onInitializationComplete;
@@ -296,7 +299,8 @@ init_failed:
 
 - (void) onReachabilityFlagsChanged:(SCNetworkReachabilityFlags) flags
 {
-    // This always gets called on the main run loop.
+    // This method expects to be called on the main run loop so that
+    // all callbacks occur on the main run loop.
     @synchronized(self)
     {
         BOOL wasInitialized = self.initialized;
@@ -304,11 +308,7 @@ init_failed:
         if(_flags != flags || !wasInitialized)
         {
             BOOL reachable = [self isReachableWithFlags:flags];
-#if TARGET_OS_IPHONE
-            BOOL WWANOnly = reachable && (flags & kSCNetworkReachabilityFlagsIsWWAN) != 0;
-#else
-            BOOL WWANOnly = NO;
-#endif
+            BOOL WWANOnly = [self isReachableWWANOnlyWithFlags:flags];
             BOOL rChanged = (_reachable != reachable) || !wasInitialized;
             BOOL wChanged = (_WWANOnly != WWANOnly) || !wasInitialized;
 
