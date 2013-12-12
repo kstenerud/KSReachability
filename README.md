@@ -17,6 +17,7 @@ KSReachability takes reachability to the next level.
 Features
 --------
 
+- Reachability to the network in general, to a host, or to an IPV4 or IPV6 address.
 - Notifications/callbacks via NSNotification, blocks, and KVO.
 - Fetching status values doesn't block.
 - Callbacks and KVO always occur on the main thread, so it's UI-safe.
