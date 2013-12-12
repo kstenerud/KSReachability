@@ -9,9 +9,7 @@ By Karl Stenerud
 Introduction
 ------------
 
-A long time ago in an Xcode far away, Apple provided "Reachability", an example
-Objective-C wrapper to demonstrate the SystemConfiguration Reachability APIs. On the
-whole it works well enough, but it could be so much more!
+A long time ago in an Xcode far away, Apple provided "Reachability", an example Objective-C wrapper to demonstrate the SystemConfiguration Reachability APIs. On the whole it works well enough, but it could be so much more!
 
 KSReachability takes reachability to the next level.
 
@@ -86,13 +84,13 @@ Usage
 Caveats
 -------
 
-KSReachability must do a DNS lookup to determine reachability to a host by
-name. Since this lookup can take upwards of 10 seconds in extreme cases, it is
-performed in the background. As a consequence, a newly created KSReachability
-object will always have its state set to unreachable until this lookup
-completes. If you need the true reachability to a host, you must wait for
-the "initialized" property to change to YES (it supports KVO). As an
-alternative, you can set the callback "onInitializationComplete".
+### The Meaning of Reachability
+
+As per [Apple's SCNetworkReachability documentation](https://developer.apple.com/LIBRARY/IOS/documentation/SystemConfiguration/Reference/SCNetworkReachabilityRef/Reference/reference.html), a remote host is considered reachable when a data packet addressed to that host **can leave the local device** (i.e. the host is **theoretically** reachable). It does **NOT** guarantee that data will actually be received by the host or that the host will respond to a connection request! For example, if the host has a DNS record, but the host itself is down, it will **still** be considered **reachable**.
+
+### Delays Due to DNS Lookups
+
+KSReachability must do a DNS lookup to determine reachability to a host by name. Since this lookup can take upwards of 10 seconds in extreme cases, it is performed in the background. As a consequence, a newly created KSReachability object will always have its state set to unreachable until this lookup completes. If you need the true reachability to a host, you must wait for the "initialized" property to change to YES (it supports KVO). As an alternative, you can set the callback "onInitializationComplete".
 
 
 Full Example
