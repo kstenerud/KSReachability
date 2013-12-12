@@ -26,6 +26,7 @@
 
 #import "KSReachability.h"
 #import <netdb.h>
+#import <arpa/inet.h>
 
 
 // ----------------------------------------------------------------------
@@ -104,18 +105,27 @@ static void onReachabilityChanged(SCNetworkReachabilityRef target,
 - (id) initWithHost:(NSString*) hostname
 {
     hostname = [self extractHostName:hostname];
-    if([hostname length] == 0)
-    {
-        struct sockaddr_in address;
-        bzero(&address, sizeof(address));
-        address.sin_len = sizeof(address);
-        address.sin_family = AF_INET;
+    const char* name = [hostname UTF8String];
 
-        return [self initWithAddress:(const struct sockaddr*)&address];
+    struct sockaddr_in6 address;
+    bzero(&address, sizeof(address));
+    address.sin6_len = sizeof(address);
+    address.sin6_family = AF_INET;
+
+    if([hostname length] > 0)
+    {
+        if(inet_pton(address.sin6_family, name, &address.sin6_addr) != 1)
+        {
+            address.sin6_family = AF_INET6;
+            if(inet_pton(address.sin6_family, name, &address.sin6_addr) != 1)
+            {
+                return [self initWithReachabilityRef:SCNetworkReachabilityCreateWithName(NULL, name)
+                                            hostname:hostname];
+            }
+        }
     }
 
-    return [self initWithReachabilityRef:SCNetworkReachabilityCreateWithName(NULL, [hostname UTF8String])
-                                hostname:hostname];
+    return [self initWithAddress:(const struct sockaddr*)&address];
 }
 
 - (id) initWithAddress:(const struct sockaddr*) address
