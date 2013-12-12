@@ -205,11 +205,12 @@ init_failed:
         return nil;
     }
 
-    if([potentialURL rangeOfString:@"//"].location == NSNotFound)
+    NSString* host = [[NSURL URLWithString:potentialURL] host];
+    if(host != nil)
     {
-        return potentialURL;
+        return host;
     }
-    return [[NSURL URLWithString:potentialURL] host];
+    return potentialURL;
 }
 
 - (BOOL) isReachableWithFlags:(SCNetworkReachabilityFlags) flags
