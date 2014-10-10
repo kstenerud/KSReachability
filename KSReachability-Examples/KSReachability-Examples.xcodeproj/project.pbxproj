@@ -23,10 +23,41 @@
 		3964E5351557731400136D58 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3964E5331557731400136D58 /* MainMenu.xib */; };
 		3964E53A1557733600136D58 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3964E5391557733600136D58 /* SystemConfiguration.framework */; };
 		3964E53C1557734C00136D58 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3964E53B1557734C00136D58 /* SystemConfiguration.framework */; };
+		3CEE99F319E8540900D1CD72 /* libKSReachabilityMac.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3CEE99EA19E853C900D1CD72 /* libKSReachabilityMac.a */; };
 		CBFEECFA170E0BA300624866 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CBFEECF9170E0BA300624866 /* Default-568h@2x.png */; };
 		CBFEED1A170F31D000624866 /* libKSReachability.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CBFEED19170F31D000624866 /* libKSReachability.a */; };
-		CBFEED33170F339800624866 /* libKSReachabilityMac.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CBFEED32170F339800624866 /* libKSReachabilityMac.a */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		3CEE99E719E853C900D1CD72 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3CEE99E219E853C900D1CD72 /* KSReachability.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = CBFEED08170F312B00624866;
+			remoteInfo = KSReachability;
+		};
+		3CEE99E919E853C900D1CD72 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3CEE99E219E853C900D1CD72 /* KSReachability.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = CBFEED20170F334D00624866;
+			remoteInfo = KSReachabilityMac;
+		};
+		3CEE99EC19E853F800D1CD72 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3CEE99E219E853C900D1CD72 /* KSReachability.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = CBFEED07170F312B00624866;
+			remoteInfo = KSReachability;
+		};
+		3CEE99F019E853FD00D1CD72 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3CEE99E219E853C900D1CD72 /* KSReachability.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = CBFEED1F170F334D00624866;
+			remoteInfo = KSReachabilityMac;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		3964E4F91557730300136D58 /* iOSReachability.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iOSReachability.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -57,8 +88,9 @@
 		3964E5341557731400136D58 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		3964E5391557733600136D58 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS5.1.sdk/System/Library/Frameworks/SystemConfiguration.framework; sourceTree = DEVELOPER_DIR; };
 		3964E53B1557734C00136D58 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.7.sdk/System/Library/Frameworks/SystemConfiguration.framework; sourceTree = DEVELOPER_DIR; };
+		3CEE99E219E853C900D1CD72 /* KSReachability.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = KSReachability.xcodeproj; path = ../KSReachability/KSReachability.xcodeproj; sourceTree = "<group>"; };
 		CBFEECF9170E0BA300624866 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-568h@2x.png"; path = "../Default-568h@2x.png"; sourceTree = "<group>"; };
-		CBFEED19170F31D000624866 /* libKSReachability.a */ = {isa = PBXFileReference; lastKnownFileType = file; name = libKSReachability.a; path = "../KSReachability/build/Release-iphoneos/libKSReachability.a"; sourceTree = "<group>"; };
+		CBFEED19170F31D000624866 /* libKSReachability.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libKSReachability.a; path = "../KSReachability/build/Release-iphoneos/libKSReachability.a"; sourceTree = "<group>"; };
 		CBFEED32170F339800624866 /* libKSReachabilityMac.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libKSReachabilityMac.a; path = ../KSReachability/build/Release/libKSReachabilityMac.a; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -79,7 +111,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CBFEED33170F339800624866 /* libKSReachabilityMac.a in Frameworks */,
+				3CEE99F319E8540900D1CD72 /* libKSReachabilityMac.a in Frameworks */,
 				3964E53C1557734C00136D58 /* SystemConfiguration.framework in Frameworks */,
 				3964E51F1557731300136D58 /* Cocoa.framework in Frameworks */,
 			);
@@ -91,6 +123,7 @@
 		3964E4EC155772F500136D58 = {
 			isa = PBXGroup;
 			children = (
+				3CEE99E219E853C900D1CD72 /* KSReachability.xcodeproj */,
 				3964E5031557730300136D58 /* iOSReachability */,
 				3964E5241557731300136D58 /* MacReachability */,
 				3964E4FC1557730300136D58 /* Frameworks */,
@@ -181,6 +214,15 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		3CEE99E319E853C900D1CD72 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				3CEE99E819E853C900D1CD72 /* libKSReachability.a */,
+				3CEE99EA19E853C900D1CD72 /* libKSReachabilityMac.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -195,6 +237,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				3CEE99ED19E853F800D1CD72 /* PBXTargetDependency */,
 			);
 			name = iOSReachability;
 			productName = iOSReachability;
@@ -212,6 +255,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				3CEE99F119E853FD00D1CD72 /* PBXTargetDependency */,
 			);
 			name = MacReachability;
 			productName = MacReachability;
@@ -236,6 +280,12 @@
 			mainGroup = 3964E4EC155772F500136D58;
 			productRefGroup = 3964E4FA1557730300136D58 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 3CEE99E319E853C900D1CD72 /* Products */;
+					ProjectRef = 3CEE99E219E853C900D1CD72 /* KSReachability.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				3964E4F81557730300136D58 /* iOSReachability */,
@@ -243,6 +293,23 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		3CEE99E819E853C900D1CD72 /* libKSReachability.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libKSReachability.a;
+			remoteRef = 3CEE99E719E853C900D1CD72 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		3CEE99EA19E853C900D1CD72 /* libKSReachabilityMac.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libKSReachabilityMac.a;
+			remoteRef = 3CEE99E919E853C900D1CD72 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		3964E4F71557730300136D58 /* Resources */ = {
@@ -288,6 +355,19 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		3CEE99ED19E853F800D1CD72 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = KSReachability;
+			targetProxy = 3CEE99EC19E853F800D1CD72 /* PBXContainerItemProxy */;
+		};
+		3CEE99F119E853FD00D1CD72 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = KSReachabilityMac;
+			targetProxy = 3CEE99F019E853FD00D1CD72 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		3964E5061557730300136D58 /* InfoPlist.strings */ = {

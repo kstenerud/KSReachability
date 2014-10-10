@@ -21,6 +21,7 @@
 @interface ViewController : UIViewController <UITextFieldDelegate>
 
 @property(strong, nonatomic) IBOutlet UITextField* hostField;
+@property(strong, nonatomic) IBOutlet UILabel* internetLabel;
 @property(strong, nonatomic) IBOutlet UILabel* reachableLabel;
 @property(strong, nonatomic) IBOutlet UILabel* wwanLabel;
 @property(strong, nonatomic) IBOutlet UILabel* flagsLabel;
