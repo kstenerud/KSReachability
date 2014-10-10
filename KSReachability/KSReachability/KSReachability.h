@@ -67,6 +67,10 @@ typedef void(^KSReachabilityCallback)(KSReachability* reachability);
  */
 + (KSReachability*) reachabilityToLocalNetwork;
 
+/** Reachability to the internet. Returns nil if an initialization error occurs.
+ */
++ (KSReachability*) reachabilityToInternet;
+
 
 #pragma mark General Information
 

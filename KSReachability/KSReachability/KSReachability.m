@@ -102,6 +102,16 @@ static void onReachabilityChanged(SCNetworkReachabilityRef target,
     return as_autorelease([[self alloc] initWithAddress:(const struct sockaddr*)&address]);
 }
 
++ (KSReachability*) reachabilityToInternet
+{
+    struct sockaddr_in address;
+    bzero(&address, sizeof(address));
+    address.sin_len = sizeof(address);
+    address.sin_family = AF_INET;
+    
+    return as_autorelease([[self alloc] initWithAddress:(const struct sockaddr*)&address]);
+}
+
 - (id) initWithHost:(NSString*) hostname
 {
     hostname = [self extractHostName:hostname];
