@@ -11,6 +11,8 @@
 
 @interface ViewController ()
 
+@property(strong,nonatomic) KSReachability* internetReachability;
+
 @property(strong,nonatomic) KSReachability* reachability;
 @property(strong,nonatomic) KSReachableOperation* reachableOperation;
 @property(strong,nonatomic) UIActivityIndicatorView* activityIndicator;
@@ -45,6 +47,21 @@
     self.activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
     
     [self updateLabels];
+    
+    __unsafe_unretained ViewController* blockSelf = self;
+    
+    // Create a new reachability object.
+    self.internetReachability = [KSReachability reachabilityToInternet];
+    self.internetReachability.onInitializationComplete = ^(KSReachability *reachability)
+    {
+        NSLog(@"Internet reachability initialization complete. Reachability = %d. Flags = %x", reachability.reachable, reachability.flags);
+    };
+    // Set a callback.
+    self.internetReachability.onReachabilityChanged = ^(KSReachability* reachability)
+    {
+        NSLog(@"Internet reachability changed to %d. Flags = %x (blocks)", reachability.reachable, reachability.flags);
+        [blockSelf updateLabels];
+    };
 }
 
 - (void)viewDidUnload
@@ -53,6 +70,8 @@
     
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     [self.reachability removeObserver:self forKeyPath:@"reachable"];
+    
+    self.internetReachability = nil;
     
     self.reachability = nil;
     self.reachableOperation = nil;
@@ -138,8 +157,15 @@
                             (flags & kSCNetworkReachabilityFlagsIsLocalAddress)       ? 'l' : '-',
                             (flags & kSCNetworkReachabilityFlagsIsDirect)             ? 'd' : '-'];
     
+    self.internetLabel.text = self.internetReachability.reachable ? @"YES" : @"NO";
     self.reachableLabel.text = self.reachability.reachable ? @"YES" : @"NO";
     self.wwanLabel.text = self.reachability.WWANOnly ? @"YES" : @"NO";
+}
+
+- (void) onInternetReachabilityChanged:(NSNotification *) notification
+{
+    KSReachability* reachability = (KSReachability*)notification.object;
+    NSLog(@"Internet reachability changed to %d. Flags = %x (NSNotification)", reachability.reachable, reachability.flags);
 }
 
 - (void) onReachabilityChanged:(NSNotification*) notification
