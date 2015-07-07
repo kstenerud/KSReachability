@@ -15,7 +15,22 @@
 		CBFEED31170F336100624866 /* KSReachability.h in Headers */ = {isa = PBXBuildFile; fileRef = CBFEED10170F312B00624866 /* KSReachability.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		CBFEED37170F377300624866 /* KSReachability.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = CBFEED10170F312B00624866 /* KSReachability.h */; };
 		CBFEED3A170F3D1500624866 /* KSReachability.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = CBFEED10170F312B00624866 /* KSReachability.h */; };
+		D8642F061B4C1022005B5DE9 /* KSReachability_iOS.h in Headers */ = {isa = PBXBuildFile; fileRef = D8642F051B4C1022005B5DE9 /* KSReachability_iOS.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D8642F0C1B4C1022005B5DE9 /* KSReachability_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8642F011B4C1022005B5DE9 /* KSReachability_iOS.framework */; };
+		D8642F131B4C1022005B5DE9 /* KSReachability_iOSTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D8642F121B4C1022005B5DE9 /* KSReachability_iOSTests.m */; };
+		D8642F1A1B4C1028005B5DE9 /* KSReachability.m in Sources */ = {isa = PBXBuildFile; fileRef = CBFEED12170F312B00624866 /* KSReachability.m */; };
+		D8642F1B1B4C102A005B5DE9 /* KSReachability.h in Headers */ = {isa = PBXBuildFile; fileRef = CBFEED10170F312B00624866 /* KSReachability.h */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		D8642F0D1B4C1022005B5DE9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CBFEED00170F312B00624866 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D8642F001B4C1022005B5DE9;
+			remoteInfo = KSReachability_iOS;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		CBFEED36170F377000624866 /* CopyFiles */ = {
@@ -52,6 +67,12 @@
 		CBFEED25170F334D00624866 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		CBFEED26170F334D00624866 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		CBFEED29170F334D00624866 /* KSReachabilityMac-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "KSReachabilityMac-Prefix.pch"; sourceTree = "<group>"; };
+		D8642F011B4C1022005B5DE9 /* KSReachability_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = KSReachability_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D8642F041B4C1022005B5DE9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D8642F051B4C1022005B5DE9 /* KSReachability_iOS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KSReachability_iOS.h; sourceTree = "<group>"; };
+		D8642F0B1B4C1022005B5DE9 /* KSReachability_iOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = KSReachability_iOSTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		D8642F111B4C1022005B5DE9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D8642F121B4C1022005B5DE9 /* KSReachability_iOSTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KSReachability_iOSTests.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,6 +92,21 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		D8642EFD1B4C1022005B5DE9 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D8642F081B4C1022005B5DE9 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D8642F0C1B4C1022005B5DE9 /* KSReachability_iOS.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -79,6 +115,8 @@
 			children = (
 				CBFEED0D170F312B00624866 /* KSReachability */,
 				CBFEED27170F334D00624866 /* KSReachabilityMac */,
+				D8642F021B4C1022005B5DE9 /* KSReachability_iOS */,
+				D8642F0F1B4C1022005B5DE9 /* KSReachability_iOSTests */,
 				CBFEED0A170F312B00624866 /* Frameworks */,
 				CBFEED09170F312B00624866 /* Products */,
 			);
@@ -89,6 +127,8 @@
 			children = (
 				CBFEED08170F312B00624866 /* libKSReachability.a */,
 				CBFEED20170F334D00624866 /* libKSReachabilityMac.a */,
+				D8642F011B4C1022005B5DE9 /* KSReachability_iOS.framework */,
+				D8642F0B1B4C1022005B5DE9 /* KSReachability_iOSTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -147,6 +187,40 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		D8642F021B4C1022005B5DE9 /* KSReachability_iOS */ = {
+			isa = PBXGroup;
+			children = (
+				D8642F051B4C1022005B5DE9 /* KSReachability_iOS.h */,
+				D8642F031B4C1022005B5DE9 /* Supporting Files */,
+			);
+			path = KSReachability_iOS;
+			sourceTree = "<group>";
+		};
+		D8642F031B4C1022005B5DE9 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				D8642F041B4C1022005B5DE9 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		D8642F0F1B4C1022005B5DE9 /* KSReachability_iOSTests */ = {
+			isa = PBXGroup;
+			children = (
+				D8642F121B4C1022005B5DE9 /* KSReachability_iOSTests.m */,
+				D8642F101B4C1022005B5DE9 /* Supporting Files */,
+			);
+			path = KSReachability_iOSTests;
+			sourceTree = "<group>";
+		};
+		D8642F101B4C1022005B5DE9 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				D8642F111B4C1022005B5DE9 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -163,6 +237,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				CBFEED31170F336100624866 /* KSReachability.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D8642EFE1B4C1022005B5DE9 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D8642F061B4C1022005B5DE9 /* KSReachability_iOS.h in Headers */,
+				D8642F1B1B4C102A005B5DE9 /* KSReachability.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -206,6 +289,42 @@
 			productReference = CBFEED20170F334D00624866 /* libKSReachabilityMac.a */;
 			productType = "com.apple.product-type.library.static";
 		};
+		D8642F001B4C1022005B5DE9 /* KSReachability_iOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D8642F141B4C1022005B5DE9 /* Build configuration list for PBXNativeTarget "KSReachability_iOS" */;
+			buildPhases = (
+				D8642EFC1B4C1022005B5DE9 /* Sources */,
+				D8642EFD1B4C1022005B5DE9 /* Frameworks */,
+				D8642EFE1B4C1022005B5DE9 /* Headers */,
+				D8642EFF1B4C1022005B5DE9 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = KSReachability_iOS;
+			productName = KSReachability_iOS;
+			productReference = D8642F011B4C1022005B5DE9 /* KSReachability_iOS.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		D8642F0A1B4C1022005B5DE9 /* KSReachability_iOSTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D8642F171B4C1022005B5DE9 /* Build configuration list for PBXNativeTarget "KSReachability_iOSTests" */;
+			buildPhases = (
+				D8642F071B4C1022005B5DE9 /* Sources */,
+				D8642F081B4C1022005B5DE9 /* Frameworks */,
+				D8642F091B4C1022005B5DE9 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				D8642F0E1B4C1022005B5DE9 /* PBXTargetDependency */,
+			);
+			name = KSReachability_iOSTests;
+			productName = KSReachability_iOSTests;
+			productReference = D8642F0B1B4C1022005B5DE9 /* KSReachability_iOSTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -214,6 +333,14 @@
 			attributes = {
 				LastUpgradeCheck = 0460;
 				ORGANIZATIONNAME = "Karl Stenerud";
+				TargetAttributes = {
+					D8642F001B4C1022005B5DE9 = {
+						CreatedOnToolsVersion = 6.4;
+					};
+					D8642F0A1B4C1022005B5DE9 = {
+						CreatedOnToolsVersion = 6.4;
+					};
+				};
 			};
 			buildConfigurationList = CBFEED03170F312B00624866 /* Build configuration list for PBXProject "KSReachability" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -229,9 +356,28 @@
 			targets = (
 				CBFEED07170F312B00624866 /* KSReachability */,
 				CBFEED1F170F334D00624866 /* KSReachabilityMac */,
+				D8642F001B4C1022005B5DE9 /* KSReachability_iOS */,
+				D8642F0A1B4C1022005B5DE9 /* KSReachability_iOSTests */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		D8642EFF1B4C1022005B5DE9 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D8642F091B4C1022005B5DE9 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
 		CBFEED3B170F3D3D00624866 /* ShellScript */ = {
@@ -266,7 +412,31 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		D8642EFC1B4C1022005B5DE9 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D8642F1A1B4C1028005B5DE9 /* KSReachability.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D8642F071B4C1022005B5DE9 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D8642F131B4C1022005B5DE9 /* KSReachability_iOSTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		D8642F0E1B4C1022005B5DE9 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D8642F001B4C1022005B5DE9 /* KSReachability_iOS */;
+			targetProxy = D8642F0D1B4C1022005B5DE9 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		CBFEED14170F312B00624866 /* Debug */ = {
@@ -444,6 +614,134 @@
 			};
 			name = Release;
 		};
+		D8642F151B4C1022005B5DE9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_FILE = KSReachability_iOS/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		D8642F161B4C1022005B5DE9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_FILE = KSReachability_iOS/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		D8642F181B4C1022005B5DE9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_FILE = KSReachability_iOSTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		D8642F191B4C1022005B5DE9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_FILE = KSReachability_iOSTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -473,6 +771,22 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
+		};
+		D8642F141B4C1022005B5DE9 /* Build configuration list for PBXNativeTarget "KSReachability_iOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D8642F151B4C1022005B5DE9 /* Debug */,
+				D8642F161B4C1022005B5DE9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		D8642F171B4C1022005B5DE9 /* Build configuration list for PBXNativeTarget "KSReachability_iOSTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D8642F181B4C1022005B5DE9 /* Debug */,
+				D8642F191B4C1022005B5DE9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 /* End XCConfigurationList section */
 	};
